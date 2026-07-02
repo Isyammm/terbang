@@ -1,0 +1,273 @@
+.history-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.history-header {
+  margin-bottom: 24px;
+}
+
+.history-title {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(to right, #FFF, #CBD5E1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.history-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.empty-history {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px !important;
+  gap: 16px;
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.empty-icon {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.empty-cta-btn {
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+/* History Cards */
+.bookings-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.booking-history-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--bg-secondary) !important;
+}
+
+.card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 14px;
+}
+
+.booking-code-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.booking-ref-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.booking-ref-val {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--accent-secondary);
+}
+
+.booking-status-badges {
+  display: flex;
+  gap: 8px;
+}
+
+.status-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 4px;
+}
+
+.status-badge.active {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+}
+
+.status-badge.cancelled {
+  background: rgba(239, 68, 68, 0.15);
+  color: #F87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.payment-status-badge {
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid var(--glass-border);
+  padding: 2px 10px;
+  border-radius: 4px;
+}
+
+/* Route Info */
+.booking-route-summary {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.booking-history-card:has(.border-left) .booking-route-summary {
+  grid-template-columns: 1fr 1fr;
+}
+
+.route-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.route-block.border-left {
+  border-left: 1px solid var(--glass-border);
+  padding-left: 16px;
+}
+
+.route-airline-mini {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.plane-rot {
+  transform: rotate(45deg);
+  color: var(--accent-primary);
+}
+
+.plane-rot-return {
+  transform: rotate(225deg);
+  color: var(--accent-secondary);
+}
+
+.route-cities-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.city-code {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.flight-date-info {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Card Bottom Stats */
+.card-bottom-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.5fr;
+  align-items: end;
+  gap: 20px;
+  border-top: 1px solid var(--glass-border);
+  padding-top: 16px;
+}
+
+.booking-passengers-summary, .booking-total-price {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-lbl {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.summary-val-passengers {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
+.total-val {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--accent-secondary);
+}
+
+.booking-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.action-btn {
+  padding: 8px 14px;
+  font-size: 12px;
+}
+
+.cancel-btn-action {
+  padding: 8px 14px;
+  font-size: 12px;
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+}
+
+.cancel-btn-action:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.cancelled-message {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--state-error);
+  font-weight: 600;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+@media (max-width: 768px) {
+  .booking-history-card:has(.border-left) .booking-route-summary {
+    grid-template-columns: 1fr;
+  }
+  .route-block.border-left {
+    border-left: none;
+    border-top: 1px dashed var(--glass-border);
+    padding-left: 0;
+    padding-top: 16px;
+  }
+  .card-bottom-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: stretch;
+  }
+  .booking-actions {
+    justify-content: flex-start;
+    border-top: 1px dashed var(--glass-border);
+    padding-top: 12px;
+  }
+}

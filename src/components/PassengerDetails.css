@@ -1,0 +1,144 @@
+.details-container {
+  width: 100%;
+}
+
+.details-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.forms-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.details-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card-header-icon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 14px;
+}
+
+.card-header-icon h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.header-icon {
+  color: var(--accent-secondary);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.passengers-list-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.passenger-form-block {
+  padding: 16px;
+  border-radius: var(--border-radius-md);
+  background: rgba(8, 12, 20, 0.3);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.block-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.passenger-num {
+  background: var(--accent-primary);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 800;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.block-title h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.passenger-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group-row .title-group {
+  flex: 0.3;
+}
+
+.form-group-row .name-group {
+  flex: 1.7;
+}
+
+/* Adjust columns inside row */
+.passenger-fields .form-group-row:first-child {
+  grid-template-columns: 120px 1fr;
+}
+
+.seats-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 100px;
+}
+
+.proceed-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.35);
+}
+
+@media (max-width: 960px) {
+  .details-layout {
+    grid-template-columns: 1fr;
+  }
+  .seats-section {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-group-row {
+    grid-template-columns: 1fr !important;
+  }
+}

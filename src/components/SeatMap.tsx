@@ -79,6 +79,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({
                 return (
                   <button
                     key={seatId}
+                    id={`seat-btn-${seatId}`}
                     type="button"
                     disabled={occupied || isSelectedByOther}
                     className={`seat-btn 
@@ -88,6 +89,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({
                       ${seatType}
                     `}
                     onClick={() => onSeatSelect(currentPassengerIndex, seatId)}
+                    aria-label={`Pilih kursi ${seatId}`}
                     title={`Kursi ${seatId} (${seatType}) ${priceAdd > 0 ? `+Rp ${priceAdd.toLocaleString()}` : ''}`}
                   >
                     <Armchair size={18} />
@@ -120,6 +122,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({
                 return (
                   <button
                     key={seatId}
+                    id={`seat-btn-${seatId}`}
                     type="button"
                     disabled={occupied || isSelectedByOther}
                     className={`seat-btn 
@@ -129,6 +132,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({
                       ${seatType}
                     `}
                     onClick={() => onSeatSelect(currentPassengerIndex, seatId)}
+                    aria-label={`Pilih kursi ${seatId}`}
                     title={`Kursi ${seatId} (${seatType}) ${priceAdd > 0 ? `+Rp ${priceAdd.toLocaleString()}` : ''}`}
                   >
                     <Armchair size={18} />

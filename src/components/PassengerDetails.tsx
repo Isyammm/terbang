@@ -217,7 +217,7 @@ export const PassengerDetails: React.FC<PassengerDetailsProps> = ({
             classType={flight.classType}
           />
 
-          <button type="submit" className="btn btn-primary proceed-btn">
+          <button type="submit" id="submit-passenger-btn" className="btn btn-primary proceed-btn">
             Lanjutkan ke Pembayaran
             <ChevronRight size={18} />
           </button>

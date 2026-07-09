@@ -131,10 +131,13 @@ export const App: React.FC = () => {
     setPassengers([]);
     setCurrentBooking(null);
     setActiveTab('home');
+    setShowLoginModal(false);
+    setPendingFlight(null);
   };
 
   // Step 1: Form search submitted
   const handleSearchSubmit = async (params: SearchParams) => {
+    setShowLoginModal(false);
     setSearchParams(params);
     setStep('outbound');
 
@@ -168,14 +171,8 @@ export const App: React.FC = () => {
     }
   };
 
-  // Step 2: Flight selected (requires login)
+  // Step 2: Flight selected
   const handleSelectFlight = (flight: Flight) => {
-    if (!currentUser) {
-      // Store pending selection and prompt login
-      setPendingFlight(flight);
-      setShowLoginModal(true);
-      return;
-    }
     if (step === 'outbound') {
       setOutboundFlight(flight);
       if (searchParams?.isRoundTrip) {

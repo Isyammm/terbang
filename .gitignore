@@ -36,3 +36,5 @@ vite.config.ts.timestamp-*
 # SQLite databases (if any)
 *.sqlite
 *.db
+
+.vercel

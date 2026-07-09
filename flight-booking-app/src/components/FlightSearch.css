@@ -96,8 +96,7 @@
   justify-content: center;
 }
 
-.custom-select-trigger:hover,
-.custom-select-trigger.open {
+.custom-select-trigger:hover {
   border-color: var(--accent-primary);
   background: rgba(8, 12, 20, 0.7);
 }
@@ -127,72 +126,10 @@
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-lg);
   z-index: 50;
-  max-height: 320px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  backdrop-filter: blur(25px);
-}
-
-.airport-search-box {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--glass-border);
-  flex-shrink: 0;
-}
-
-.airport-search-icon {
-  color: var(--text-secondary);
-  flex-shrink: 0;
-}
-
-.airport-search-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--text-primary);
-  font-family: var(--font-family);
-  font-size: 13px;
-  padding: 0;
-}
-
-.airport-search-input::placeholder {
-  color: var(--text-secondary);
-  opacity: 0.7;
-}
-
-.airport-search-clear {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
-  padding: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: all var(--transition-fast);
-}
-
-.airport-search-clear:hover {
-  color: var(--text-primary);
-  background: rgba(255,255,255,0.1);
-}
-
-.airport-options-list {
+  max-height: 250px;
   overflow-y: auto;
+  backdrop-filter: blur(25px);
   padding: 6px;
-  flex: 1;
-}
-
-.airport-no-result {
-  padding: 16px;
-  text-align: center;
-  color: var(--text-secondary);
-  font-size: 13px;
 }
 
 .custom-option {
@@ -246,23 +183,6 @@
   text-overflow: ellipsis;
 }
 
-.option-country {
-  margin-left: auto;
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  background: rgba(255,255,255,0.06);
-  padding: 2px 6px;
-  border-radius: 999px;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.custom-option.selected .option-country {
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-}
-
 .swap-btn-container {
   display: flex;
   justify-content: center;
@@ -292,17 +212,9 @@
   box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
 }
 
-.optional-label {
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-left: 4px;
-  opacity: 0.75;
-}
-
-.input-optional {
-  border-style: dashed;
-  opacity: 0.8;
+.form-group.disabled {
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 .select-input {

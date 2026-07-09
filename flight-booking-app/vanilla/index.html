@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B5CF6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5 5.3 6.7c-.9-.2-1.9.1-2.4.9l-.5.5c-.5.5-.1 1.2.6 1.4l7.2 2.2-4.7 4.7-2.9-.6c-.5-.1-1.1.2-1.2.7l-.2.7c-.1.5.2 1 .7 1.1l4 .8.8 4c.1.5.6.8 1.1.7l.7-.2c.5-.1.8-.7.7-1.2l-.6-2.9 4.7-4.7 2.2 7.2c.2.7.9 1.1 1.4.6l.5-.5c.8-.5 1.1-1.5.9-2.4z'%3E%3C/path%3E%3C/svg%3E" />
+  <title>FlyEase - Aplikasi Pemesanan Tiket Pesawat Premium</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-logo" id="nav-logo">
+        <div class="logo-icon-container">
+          <i data-lucide="plane" class="logo-icon"></i>
+        </div>
+        <span class="logo-text">Fly<span>Ease</span></span>
+      </div>
+      
+      <div class="navbar-links">
+        <button class="navbar-link active" id="btn-tab-home">
+          <i data-lucide="calendar" size="18"></i>
+          <span>Cari Tiket</span>
+        </button>
+        <button class="navbar-link" id="btn-tab-bookings">
+          <i data-lucide="ticket" size="18"></i>
+          <span>Pesanan Saya</span>
+        </button>
+      </div>
+      
+      <div class="navbar-profile">
+        <div class="profile-badge">
+          <i data-lucide="user" class="profile-icon" size="16"></i>
+          <span class="profile-name">Adrian Wijaya</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="container" style="padding: 40px 24px 80px 24px;">
+
+    <!-- Stepper (Progress Indicator) -->
+    <div class="stepper hidden" id="app-stepper">
+      <div class="step" id="step-node-1">
+        <div class="step-node">1</div>
+        <span class="step-label">Cari</span>
+      </div>
+      <div class="step" id="step-node-2">
+        <div class="step-node">2</div>
+        <span class="step-label">Penerbangan</span>
+      </div>
+      <div class="step" id="step-node-3">
+        <div class="step-node">3</div>
+        <span class="step-label">Kursi & Penumpang</span>
+      </div>
+      <div class="step" id="step-node-4">
+        <div class="step-node">4</div>
+        <span class="step-label">Bayar</span>
+      </div>
+    </div>
+
+    <!-- VIEW 1: HOME SEARCH -->
+    <section id="view-search" class="view">
+      <div class="home-hero-container">
+        <div class="hero-text-block text-center animated-fade-in" style="margin-bottom: 60px;">
+          <h1 style="font-size: 48px; font-weight: 800; margin-bottom: 16px; letter-spacing: -1px;">
+            Terbang Tanpa Batas Bersama <span style="background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">FlyEase</span>
+          </h1>
+          <p style="font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+            Platform pemesanan tiket penerbangan berkelas dunia dengan visual premium dan proses check-out instan.
+          </p>
+        </div>
+        
+        <!-- Search Card -->
+        <div class="search-card glass-card animated-fade-in">
+          <div class="search-header">
+            <h2 class="search-title">Temukan Penerbangan Terbaik</h2>
+            <p class="search-subtitle">Jelajahi dunia dengan kenyamanan kelas satu bersama FlyEase</p>
+          </div>
+
+          <form id="search-form" class="search-form">
+            <!-- Trip Type Selector -->
+            <div class="trip-type-selector">
+              <button type="button" class="trip-type-btn active" id="btn-oneway">Sekali Jalan</button>
+              <button type="button" class="trip-type-btn" id="btn-roundtrip">Pulang Pergi</button>
+            </div>
+
+            <!-- Search Grid -->
+            <div class="search-grid">
+              <!-- Origin -->
+              <div class="search-input-container">
+                <label class="form-label"><i data-lucide="map-pin" size="14"></i> Asal</label>
+                <div class="custom-select-trigger" id="origin-trigger">
+                  <span class="airport-code" id="origin-code-display">CGK</span>
+                  <span class="airport-detail" id="origin-detail-display">Jakarta (Soekarno-Hatta International Airport)</span>
+                </div>
+                <div class="custom-select-options hidden" id="origin-options"></div>
+              </div>
+
+              <!-- Swap Button -->
+              <div class="swap-btn-container">
+                <button type="button" class="swap-btn" id="btn-swap-airports" title="Tukar Rute">
+                  <i data-lucide="arrow-right-left" size="18"></i>
+                </button>
+              </div>
+
+              <!-- Destination -->
+              <div class="search-input-container">
+                <label class="form-label"><i data-lucide="map-pin" size="14"></i> Tujuan</label>
+                <div class="custom-select-trigger" id="dest-trigger">
+                  <span class="airport-code" id="dest-code-display">DPS</span>
+                  <span class="airport-detail" id="dest-detail-display">Bali (I Gusti Ngurah Rai International Airport)</span>
+                </div>
+                <div class="custom-select-options hidden" id="dest-options"></div>
+              </div>
+            </div>
+
+            <div class="search-grid secondary-grid">
+              <!-- Departure Date -->
+              <div class="form-group">
+                <label class="form-label"><i data-lucide="calendar" size="14"></i> Keberangkatan</label>
+                <input type="date" class="form-input" id="input-dep-date" required>
+              </div>
+
+              <!-- Return Date -->
+              <div class="form-group disabled" id="group-return-date">
+                <label class="form-label"><i data-lucide="calendar" size="14"></i> Kepulangan</label>
+                <input type="date" class="form-input" id="input-ret-date" disabled>
+              </div>
+
+              <!-- Passengers -->
+              <div class="form-group">
+                <label class="form-label"><i data-lucide="users" size="14"></i> Penumpang</label>
+                <select class="form-input select-input" id="input-passengers">
+                  <option value="1">1 Penumpang</option>
+                  <option value="2">2 Penumpang</option>
+                  <option value="3">3 Penumpang</option>
+                  <option value="4">4 Penumpang</option>
+                  <option value="5">5 Penumpang</option>
+                </select>
+              </div>
+
+              <!-- Cabin Class -->
+              <div class="form-group">
+                <label class="form-label"><i data-lucide="briefcase" size="14"></i> Kelas Kabin</label>
+                <select class="form-input select-input" id="input-cabin-class">
+                  <option value="Economy">Ekonomi</option>
+                  <option value="Business">Bisnis</option>
+                  <option value="First">First Class</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="search-action-container">
+              <button type="submit" class="btn btn-primary search-submit-btn">
+                <i data-lucide="search" size="18"></i>
+                Cari Penerbangan
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: FLIGHT SELECTION (OUTBOUND/INBOUND) -->
+    <section id="view-results" class="view hidden">
+      <div class="results-container animated-fade-in">
+        <!-- Route Header -->
+        <div class="results-header glass-card">
+          <div class="route-info">
+            <span class="route-badge" id="results-badge-type">Penerbangan Pergi</span>
+            <div class="route-title">
+              <h2 id="results-origin-city">Jakarta</h2>
+              <i data-lucide="arrow-right" class="route-arrow"></i>
+              <h2 id="results-dest-city">Bali</h2>
+            </div>
+            <p class="route-details" id="results-route-details">
+              Kamis, 2 Juli 2026 • 1 Penumpang • Ekonomi
+            </p>
+          </div>
+        </div>
+
+        <div class="results-layout">
+          <!-- Siderbar Filters -->
+          <aside class="filters-sidebar glass-card">
+            <div class="sidebar-title">
+              <i data-lucide="filter" size="18"></i>
+              <h3>Filter Pencarian</h3>
+            </div>
+
+            <!-- Transit Filter -->
+            <div class="filter-section">
+              <h4 class="filter-label">Transit</h4>
+              <div class="transit-options">
+                <label class="radio-label">
+                  <input type="radio" name="filter-transit" value="all" checked>
+                  <span>Semua</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="filter-transit" value="direct">
+                  <span>Langsung (Non-stop)</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="filter-transit" value="transit">
+                  <span>1+ Transit</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Price Filter -->
+            <div class="filter-section">
+              <h4 class="filter-label">Harga Maksimal</h4>
+              <div class="price-slider-container">
+                <input type="range" class="price-range-slider" id="filter-price-slider">
+                <div class="price-labels">
+                  <span id="filter-price-min">Rp 850.000</span>
+                  <span class="current-max" id="filter-price-max">Rp 15.000.000</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Airlines Filter -->
+            <div class="filter-section">
+              <h4 class="filter-label">Maskapai</h4>
+              <div class="airline-options" id="filter-airlines-list"></div>
+            </div>
+          </aside>
+
+          <!-- Main results -->
+          <main class="flights-main">
+            <!-- Sort Bar -->
+            <div class="sorting-bar glass-card">
+              <div class="sorting-label">
+                <i data-lucide="sliders-horizontal" size="16"></i>
+                <span>Urutkan:</span>
+              </div>
+              <div class="sorting-tabs">
+                <button class="sort-tab active" data-sort="cheapest">Termurah</button>
+                <button class="sort-tab" data-sort="fastest">Tercepat</button>
+                <button class="sort-tab" data-sort="earliest">Terawal</button>
+                <button class="sort-tab" data-sort="latest">Terakhir</button>
+              </div>
+            </div>
+
+            <!-- Results List -->
+            <div class="flights-list" id="flights-list-placeholder"></div>
+          </main>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: PASSENGERS & SEAT MAP -->
+    <section id="view-passengers" class="view hidden">
+      <div class="details-container animated-fade-in">
+        <div class="details-layout">
+          <!-- Left side: Passenger Forms -->
+          <div class="forms-section">
+            <!-- Contact -->
+            <div class="details-card glass-card">
+              <div class="card-header-icon">
+                <i data-lucide="contact" class="header-icon" size={20}></i>
+                <h3>Informasi Kontak</h3>
+              </div>
+              <div class="contact-grid">
+                <div class="form-group">
+                  <label class="form-label">Email Kontak</label>
+                  <input type="email" class="form-input" id="input-contact-email" value="adrian.wijaya@gmail.com" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">No. Telepon</label>
+                  <input type="tel" class="form-input" id="input-contact-phone" value="+62 812-3456-7890" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- Passengers block -->
+            <div class="details-card glass-card">
+              <div class="card-header-icon">
+                <i data-lucide="user" class="header-icon" size={20}></i>
+                <h3>Detail Penumpang</h3>
+              </div>
+              <div class="passengers-list-form" id="passengers-inputs-container"></div>
+            </div>
+          </div>
+
+          <!-- Right side: Seat Selection sticked -->
+          <div class="seats-section">
+            <div class="seat-map-card glass-card">
+              <h3 class="seat-map-title">Pilih Kursi Penerbangan</h3>
+              
+              <!-- Seat Tabs -->
+              <div class="passenger-selection-tabs" id="seat-passenger-tabs"></div>
+
+              <!-- Seat Legend -->
+              <div class="seat-legend">
+                <div class="legend-item">
+                  <div class="legend-box available"><i data-lucide="armchair" size="14"></i></div>
+                  <span>Tersedia</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-box occupied"><i data-lucide="armchair" size="14"></i></div>
+                  <span>Terisi</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-box selected"><i data-lucide="armchair" size="14"></i></div>
+                  <span>Pilihan Anda</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-box selected-other"><i data-lucide="armchair" size="14"></i></div>
+                  <span>Penumpang Lain</span>
+                </div>
+              </div>
+
+              <!-- Seat Cabin Scroll -->
+              <div class="cabin-scroll-area">
+                <div class="cabin-grid" id="seat-cabin-grid"></div>
+              </div>
+
+              <div class="seat-notes">
+                <p class="seat-note-text">* Baris depan (Baris 1 & 4) dikenakan biaya Legroom Ekstra (+Rp 150.000)</p>
+                <p class="seat-note-text">* Kursi Jendela (A & F) dikenakan biaya (+Rp 50.000)</p>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-primary proceed-btn" id="btn-proceed-checkout">
+              Lanjutkan ke Pembayaran
+              <i data-lucide="chevron-right" size="18"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: CHECKOUT -->
+    <section id="view-checkout" class="view hidden">
+      <div class="checkout-container animated-fade-in">
+        <div class="checkout-grid-layout">
+          <!-- Left: summaries and payment -->
+          <div class="checkout-left-column">
+            
+            <!-- Flight summaries -->
+            <div class="checkout-card glass-card">
+              <div class="card-heading">
+                <i data-lucide="plane" class="heading-icon" size="18"></i>
+                <h3>Ringkasan Penerbangan</h3>
+              </div>
+              <div id="checkout-flights-summary"></div>
+            </div>
+
+            <!-- Passengers summary -->
+            <div class="checkout-card glass-card">
+              <div class="card-heading">
+                <i data-lucide="ticket" class="heading-icon" size="18"></i>
+                <h3>Detail Penumpang & Kursi</h3>
+              </div>
+              <div class="passengers-summary-list" id="checkout-passengers-summary"></div>
+            </div>
+
+            <!-- Payment details -->
+            <div class="checkout-card glass-card">
+              <div class="card-heading">
+                <i data-lucide="credit-card" class="heading-icon" size="18"></i>
+                <h3>Metode Pembayaran</h3>
+              </div>
+
+              <div class="payment-tabs">
+                <button type="button" class="payment-tab-btn active" data-payment="credit_card">
+                  <i data-lucide="credit-card" size="16"></i>
+                  <span>Kartu Kredit</span>
+                </button>
+                <button type="button" class="payment-tab-btn" data-payment="qris">
+                  <i data-lucide="qr-code" size="16"></i>
+                  <span>QRIS</span>
+                </button>
+                <button type="button" class="payment-tab-btn" data-payment="va">
+                  <i data-lucide="building" size="16"></i>
+                  <span>Virtual Account</span>
+                </button>
+              </div>
+
+              <!-- Payment Form details -->
+              <div class="payment-form-area">
+                <div id="form-cc-details" class="cc-form animated-fade-in">
+                  <div class="form-group">
+                    <label class="form-label">Nomor Kartu</label>
+                    <input type="text" class="form-input" id="cc-number" placeholder="1234 5678 9101 1121" maxlength="19">
+                  </div>
+                  <div class="form-group-row">
+                    <div class="form-group">
+                      <label class="form-label">Masa Berlaku (MM/YY)</label>
+                      <input type="text" class="form-input" id="cc-expiry" placeholder="12/28" maxlength="5">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">CVV</label>
+                      <input type="password" class="form-input" id="cc-cvv" placeholder="***" maxlength="3">
+                    </div>
+                  </div>
+                </div>
+
+                <div id="form-qris-details" class="qris-area animated-fade-in text-center hidden">
+                  <p class="qris-desc">Pindai kode QRIS berikut menggunakan aplikasi e-wallet atau mobile banking Anda.</p>
+                  <div class="qris-qr-mock">
+                    <svg viewBox="0 0 100 100" class="mock-qr-svg">
+                      <path d="M10 10h30v30h-30zm0 50h30v30h-30zm50-50h30v30h-30zm10 40h10v10h-10zm10 10h10v10h-10zm-20 10h10v10h-10zm20 10h10v10h-10zm-10 10h10v10h-10zm-10-20h10v10h-10z" fill="white"></path>
+                      <path d="M18 18h14v14h-14zm0 50h14v14h-14zm50-50h14v14h-14z" fill="#06B6D4"></path>
+                    </svg>
+                  </div>
+                  <span class="qris-expire">Berlaku selama 15:00 menit</span>
+                </div>
+
+                <div id="form-va-details" class="va-area animated-fade-in hidden">
+                  <p class="va-desc">Pilih bank dan transfer tepat sesuai dengan nilai total pembayaran.</p>
+                  <div class="va-bank-select">
+                    <div class="bank-option selected" data-bank="Mandiri">
+                      <span class="bank-name-tag">MANDIRI</span>
+                      <span class="bank-full">Mandiri Virtual Account</span>
+                    </div>
+                    <div class="bank-option" data-bank="BCA">
+                      <span class="bank-name-tag">BCA</span>
+                      <span class="bank-full">BCA Virtual Account</span>
+                    </div>
+                    <div class="bank-option" data-bank="BRI">
+                      <span class="bank-name-tag">BRI</span>
+                      <span class="bank-full">BRI Virtual Account</span>
+                    </div>
+                  </div>
+                  <div class="va-details-box">
+                    <span class="va-num-label">Nomor Virtual Account</span>
+                    <span class="va-number-code">88001 98321 00482</span>
+                  </div>
+                </div>
+
+                <button type="button" class="btn btn-primary pay-now-btn" id="btn-pay-now">
+                  Bayar Sekarang - Rp 0
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: pricing details & coupon -->
+          <div class="checkout-right-column">
+            <!-- Promo -->
+            <div class="checkout-card glass-card">
+              <div class="card-heading">
+                <i data-lucide="percent" class="heading-icon" size="18"></i>
+                <h3>Kode Promo / Kupon</h3>
+              </div>
+              <div class="promo-input-row">
+                <input type="text" class="form-input promo-field" placeholder="Masukkan kode promo (FLYEASE10)" id="input-promo-code">
+                <button type="button" class="btn btn-outline apply-promo-btn" id="btn-apply-promo">Gunakan</button>
+              </div>
+              <div class="promo-applied-badge hidden" id="promo-badge">
+                Promo Berhasil Digunakan (10% Diskon)
+              </div>
+              <p class="promo-tip">Gunakan kode <strong>FLYEASE10</strong> untuk diskon 10% atau <strong>LIBURANYUK</strong> untuk diskon 15% subtotal.</p>
+            </div>
+
+            <!-- Price Breakdown -->
+            <div class="checkout-card glass-card pricing-breakdown-card">
+              <div class="card-heading">
+                <i data-lucide="shield-check" class="heading-icon" size="18"></i>
+                <h3>Rincian Harga</h3>
+              </div>
+
+              <div class="price-breakdown-rows" id="checkout-price-rows"></div>
+
+              <div class="secure-badge-box">
+                <i data-lucide="shield-check" class="secure-icon" size="16"></i>
+                <span>Pembayaran Terenkripsi & Aman</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 5: PROCESSING PAYMENT ANIMATION -->
+    <section id="view-processing" class="view hidden">
+      <div class="payment-animation-card glass-card text-center">
+        <div class="success-checkmark" id="processing-check-container" style="display: none;">
+          <i data-lucide="check-circle-2" size="72" class="checkmark-icon" style="color: var(--state-success);"></i>
+        </div>
+        <div class="processing-spinner-box" id="processing-spinner-container">
+          <div class="spinner-large"></div>
+        </div>
+        <h2 class="success-title" id="processing-title">Memproses Pembayaran...</h2>
+        <p class="success-subtitle" id="processing-subtitle">Terima kasih. Harap tunggu sebentar selagi kami mengamankan transaksi Anda...</p>
+        <div class="loader-bar-container">
+          <div class="loader-bar-fill" id="processing-loader-bar"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 6: BOARDING PASS DISPLAY -->
+    <section id="view-ticket" class="view hidden">
+      <div class="eticket-wrapper animated-fade-in">
+        <!-- Top banner status -->
+        <div class="eticket-banner glass-card">
+          <i data-lucide="check-circle" class="banner-success-icon" size="32"></i>
+          <div class="banner-content">
+            <h3>E-Ticket Berhasil Diterbitkan!</h3>
+            <p>Kode Booking Anda: <strong class="booking-ref-code" id="ticket-booking-id">ABCDEF</strong></p>
+          </div>
+          <div class="banner-actions">
+            <button class="btn btn-outline" id="btn-print-pdf">
+              <i data-lucide="printer" size="16"></i>
+              <span>Cetak PDF</span>
+            </button>
+            <button class="btn btn-primary" id="btn-ticket-back-home">
+              <i data-lucide="home" size="16"></i>
+              <span>Ke Beranda</span>
+            </button>
+          </div>
+        </div>
+
+        <h3 class="section-title-label">E-Ticket & Boarding Pass</h3>
+
+        <!-- Stack of tickets -->
+        <div class="tickets-stack" id="ticket-boarding-cards-container"></div>
+      </div>
+    </section>
+
+    <!-- VIEW 7: BOOKINGS HISTORY -->
+    <section id="view-bookings" class="view hidden">
+      <div class="history-container animated-fade-in">
+        <div class="history-header">
+          <h2 class="history-title">Pesanan Saya</h2>
+          <p class="history-subtitle">Kelola penerbangan dan unduh boarding pass Anda di sini</p>
+        </div>
+
+        <!-- Empty history state -->
+        <div class="empty-history glass-card text-center hidden" id="bookings-empty-state">
+          <i data-lucide="ticket" class="empty-icon" size="54"></i>
+          <h3>Belum Ada Tiket yang Dipesan</h3>
+          <p>Anda belum memesan tiket pesawat. Cari rute liburan Anda berikutnya sekarang!</p>
+          <button class="btn btn-primary empty-cta-btn" id="btn-bookings-empty-cta">
+            Cari Tiket Pesawat
+          </button>
+        </div>
+
+        <!-- History cards list -->
+        <div class="bookings-list-container" id="bookings-list-placeholder"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>

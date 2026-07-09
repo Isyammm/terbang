@@ -14,12 +14,12 @@ interface CheckoutProps {
 }
 
 export const Checkout: React.FC<CheckoutProps> = ({
-  searchParams: _searchParams,
+  searchParams,
   outboundFlight,
   inboundFlight,
   passengers,
-  contactEmail: _contactEmail,
-  contactPhone: _contactPhone,
+  contactEmail,
+  contactPhone,
   onPaymentSuccess
 }) => {
   const [paymentMethod, setPaymentMethod] = useState<'credit_card' | 'qris' | 'va'>('credit_card');
@@ -28,7 +28,6 @@ export const Checkout: React.FC<CheckoutProps> = ({
   const [discountPercent, setDiscountPercent] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
-  const [paymentError, setPaymentError] = useState<string | null>(null);
 
   // Credit Card fields
   const [cardNumber, setCardNumber] = useState('');
@@ -74,37 +73,6 @@ export const Checkout: React.FC<CheckoutProps> = ({
 
   const handlePaymentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setPaymentError(null);
-
-    if (paymentMethod === 'credit_card') {
-      // Validate CVV length (must be 3 digits)
-      if (!/^\d{3}$/.test(cardCvv)) {
-        setPaymentError('CVV tidak valid. Harus terdiri dari 3 digit angka!');
-        return;
-      }
-
-      // Validate expiry format MM/YY
-      const expiryPattern = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
-      const match = cardExpiry.match(expiryPattern);
-      if (!match) {
-        setPaymentError('Format masa berlaku kartu harus MM/YY (contoh: 12/28)!');
-        return;
-      }
-
-      const month = parseInt(match[1], 10);
-      const year = parseInt(match[2], 10) + 2000;
-
-      const now = new Date();
-      const currentMonth = now.getMonth() + 1;
-      const currentYear = now.getFullYear();
-
-      // Validate if card is expired
-      if (year < currentYear || (year === currentYear && month < currentMonth)) {
-        setPaymentError('Kartu kredit sudah kedaluwarsa!');
-        return;
-      }
-    }
-
     setIsProcessing(true);
 
     // Simulate Payment Processor Delay
@@ -341,13 +309,6 @@ export const Checkout: React.FC<CheckoutProps> = ({
                     <span className="va-num-label">Nomor Virtual Account</span>
                     <span className="va-number-code">88001 98321 00482</span>
                   </div>
-                </div>
-              )}
-
-              {paymentError && (
-                <div className="payment-error-message" style={{ color: '#ef4444', backgroundColor: '#fef2f2', border: '1px solid #fee2e2', padding: '10px', borderRadius: '6px', marginBottom: '15px', fontSize: '14px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ display: 'inline-block', width: '6px', height: '6px', backgroundColor: '#ef4444', borderRadius: '50%' }}></span>
-                  {paymentError}
                 </div>
               )}
 

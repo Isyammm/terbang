@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Contact, ChevronRight } from 'lucide-react';
+import { User, Contact, Armchair, ChevronRight } from 'lucide-react';
 import { SeatMap } from './SeatMap';
 import { Passenger, SearchParams, Flight } from '../types';
 import './PassengerDetails.css';
@@ -25,16 +25,16 @@ export const PassengerDetails: React.FC<PassengerDetailsProps> = ({
       title: 'Mr',
       fullName: '',
       nationality: 'Indonesia',
-      passportNumber: '',
-      seatId: '',
-      seatNumber: ''
+      passportNumber: ''
     }));
   });
 
   // Contact info
-  const [contactEmail, setContactEmail] = useState('hisyam.yassar@gmail.com');
-  const [contactPhone, setContactPhone] = useState('+62 813-5536-4117');
+  const [contactEmail, setContactEmail] = useState('adrian.wijaya@gmail.com');
+  const [contactPhone, setContactPhone] = useState('+62 812-3456-7890');
 
+  // Selected seats state: { passengerIndex: seatId }
+  const [selectedSeats, setSelectedSeats] = useState<{ [passengerIndex: number]: string }>({});
   const [currentPassengerIndex, setCurrentPassengerIndex] = useState<number>(0);
 
   // Handle passenger input changes
@@ -46,30 +46,22 @@ export const PassengerDetails: React.FC<PassengerDetailsProps> = ({
 
   // Seat Select handler
   const handleSeatSelect = (passengerIndex: number, seatId: string) => {
-    setPassengers(prev => 
-      prev.map((p, i) => i === passengerIndex ? { ...p, seatId, seatNumber: seatId } : p)
-    );
+    setSelectedSeats(prev => {
+      // Create new selections copy
+      const next = { ...prev };
+      // Assign seat
+      next[passengerIndex] = seatId;
+      return next;
+    });
   };
-
-  // Dynamically compute selectedSeats object for SeatMap
-  const selectedSeats = passengers.reduce((acc, p, idx) => {
-    if (p.seatId) acc[idx] = p.seatId;
-    return acc;
-  }, {} as { [key: number]: string });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validate Passenger Names
     for (let i = 0; i < passengers.length; i++) {
-      const trimmedName = passengers[i].fullName.trim();
-      if (!trimmedName) {
+      if (!passengers[i].fullName.trim()) {
         alert(`Nama lengkap Penumpang ${i + 1} tidak boleh kosong!`);
-        return;
-      }
-      // Ensure name only contains letters and spaces
-      if (!/^[a-zA-Z\s]+$/.test(trimmedName)) {
-        alert(`Nama lengkap Penumpang ${i + 1} hanya boleh berisi huruf dan spasi!`);
         return;
       }
       if (isInternational && !passengers[i].passportNumber?.trim()) {
@@ -80,14 +72,21 @@ export const PassengerDetails: React.FC<PassengerDetailsProps> = ({
 
     // Validate Seats
     for (let i = 0; i < passengers.length; i++) {
-      if (!passengers[i].seatId) {
+      if (!selectedSeats[i]) {
         alert(`Harap pilih kursi untuk Penumpang ${i + 1}!`);
         setCurrentPassengerIndex(i); // switch to the passenger that doesn't have a seat
         return;
       }
     }
 
-    onProceed(passengers, contactEmail, contactPhone);
+    // Map seats back to passenger records
+    const finalPassengers = passengers.map((p, idx) => ({
+      ...p,
+      seatId: selectedSeats[idx],
+      seatNumber: selectedSeats[idx]
+    }));
+
+    onProceed(finalPassengers, contactEmail, contactPhone);
   };
 
   return (
@@ -168,7 +167,7 @@ export const PassengerDetails: React.FC<PassengerDetailsProps> = ({
                           value={passenger.fullName}
                           onChange={(e) => handleInputChange(idx, 'fullName', e.target.value)}
                           required
-                          placeholder="Contoh: Hisyam Yassar"
+                          placeholder="Contoh: Adrian Wijaya"
                         />
                       </div>
                     </div>

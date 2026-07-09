@@ -1,32 +1,78 @@
 import { Airport, Airline, Flight, ClassType } from '../types';
 
 export const airports: Airport[] = [
+  // ── Indonesia ─────────────────────────────────────────────────────────────
   { code: 'CGK', city: 'Jakarta', name: 'Soekarno-Hatta International Airport', country: 'Indonesia' },
   { code: 'DPS', city: 'Bali', name: 'I Gusti Ngurah Rai International Airport', country: 'Indonesia' },
-  { code: 'SIN', city: 'Singapore', name: 'Changi Airport', country: 'Singapore' },
-  { code: 'HND', city: 'Tokyo', name: 'Haneda Airport', country: 'Japan' },
-  { code: 'SYD', city: 'Sydney', name: 'Kingsford Smith Airport', country: 'Australia' },
   { code: 'SUB', city: 'Surabaya', name: 'Juanda International Airport', country: 'Indonesia' },
   { code: 'KNO', city: 'Medan', name: 'Kualanamu International Airport', country: 'Indonesia' },
   { code: 'YIA', city: 'Yogyakarta', name: 'Yogyakarta International Airport', country: 'Indonesia' },
   { code: 'BDO', city: 'Bandung', name: 'Husein Sastranegara International Airport', country: 'Indonesia' },
   { code: 'LOP', city: 'Lombok', name: 'Lombok International Airport', country: 'Indonesia' },
   { code: 'UPG', city: 'Makassar', name: 'Sultan Hasanuddin International Airport', country: 'Indonesia' },
+  { code: 'SRG', city: 'Semarang', name: 'Jenderal Ahmad Yani International Airport', country: 'Indonesia' },
+  { code: 'BPN', city: 'Balikpapan', name: 'Sultan Aji Muhammad Sulaiman Sepinggan Airport', country: 'Indonesia' },
+  { code: 'PLM', city: 'Palembang', name: 'Sultan Mahmud Badaruddin II Airport', country: 'Indonesia' },
+  { code: 'PKU', city: 'Pekanbaru', name: 'Sultan Syarif Kasim II Airport', country: 'Indonesia' },
+  { code: 'MDC', city: 'Manado', name: 'Sam Ratulangi International Airport', country: 'Indonesia' },
+  { code: 'DJJ', city: 'Jayapura', name: 'Dortheys Hiyo Eluay International Airport', country: 'Indonesia' },
+  // ── Asia Tenggara & Asia ──────────────────────────────────────────────────
+  { code: 'SIN', city: 'Singapore', name: 'Changi Airport', country: 'Singapore' },
   { code: 'KUL', city: 'Kuala Lumpur', name: 'Kuala Lumpur International Airport', country: 'Malaysia' },
   { code: 'BKK', city: 'Bangkok', name: 'Suvarnabhumi Airport', country: 'Thailand' },
   { code: 'HKG', city: 'Hong Kong', name: 'Hong Kong International Airport', country: 'Hong Kong' },
   { code: 'ICN', city: 'Seoul', name: 'Incheon International Airport', country: 'South Korea' },
+  { code: 'HND', city: 'Tokyo', name: 'Haneda Airport', country: 'Japan' },
+  { code: 'PEK', city: 'Beijing', name: 'Beijing Capital International Airport', country: 'China' },
+  // ── Timur Tengah & Eropa ──────────────────────────────────────────────────
   { code: 'DXB', city: 'Dubai', name: 'Dubai International Airport', country: 'UAE' },
-  { code: 'AMS', city: 'Amsterdam', name: 'Amsterdam Airport Schiphol', country: 'Netherlands' }
+  { code: 'AMS', city: 'Amsterdam', name: 'Amsterdam Airport Schiphol', country: 'Netherlands' },
+  { code: 'LHR', city: 'London', name: 'Heathrow Airport', country: 'UK' },
+  { code: 'CDG', city: 'Paris', name: 'Charles de Gaulle Airport', country: 'France' },
+  { code: 'FRA', city: 'Frankfurt', name: 'Frankfurt Airport', country: 'Germany' },
+  // ── Australia & Amerika ───────────────────────────────────────────────────
+  { code: 'SYD', city: 'Sydney', name: 'Kingsford Smith Airport', country: 'Australia' },
+  { code: 'JFK', city: 'New York', name: 'John F. Kennedy International Airport', country: 'USA' },
+  { code: 'LAX', city: 'Los Angeles', name: 'Los Angeles International Airport', country: 'USA' },
 ];
 
 export const airlines: Airline[] = [
-  { id: 'GA', name: 'Garuda Indonesia', code: 'GA', logoColor: '#005C8A' },
-  { id: 'SQ', name: 'Singapore Airlines', code: 'SQ', logoColor: '#F5A623' },
-  { id: 'ID', name: 'Batik Air', code: 'ID', logoColor: '#A81C25' },
-  { id: 'QG', name: 'Citilink', code: 'QG', logoColor: '#4A90E2' },
-  { id: 'JL', name: 'Japan Airlines', code: 'JL', logoColor: '#E60012' },
-  { id: 'QF', name: 'Qantas', code: 'QF', logoColor: '#E01933' }
+  // ── Maskapai Indonesia ────────────────────────────────────────────────────
+  { id: 'GA',  name: 'Garuda Indonesia',      code: 'GA',  logoColor: '#005C8A' },
+  { id: 'ID',  name: 'Batik Air',             code: 'ID',  logoColor: '#A81C25' },
+  { id: 'JT',  name: 'Lion Air',              code: 'JT',  logoColor: '#FF6B00' },
+  { id: 'QG',  name: 'Citilink',              code: 'QG',  logoColor: '#00B050' },
+  { id: 'IW',  name: 'Wings Air',             code: 'IW',  logoColor: '#E84A2F' },
+  { id: 'IN',  name: 'Nam Air',               code: 'IN',  logoColor: '#0066CC' },
+  { id: '3N',  name: 'TransNusa',             code: '3N',  logoColor: '#C8102E' },
+  { id: 'TN',  name: 'Super Air Jet',         code: 'TN',  logoColor: '#FF4500' },
+  // ── Asia Tenggara ─────────────────────────────────────────────────────────
+  { id: 'SQ',  name: 'Singapore Airlines',    code: 'SQ',  logoColor: '#F5A623' },
+  { id: 'AK',  name: 'AirAsia',              code: 'AK',  logoColor: '#FF0000' },
+  { id: 'MH',  name: 'Malaysia Airlines',     code: 'MH',  logoColor: '#CC0001' },
+  { id: 'TG',  name: 'Thai Airways',          code: 'TG',  logoColor: '#6B2D8B' },
+  { id: 'VN',  name: 'Vietnam Airlines',      code: 'VN',  logoColor: '#004B87' },
+  { id: 'PR',  name: 'Philippine Airlines',   code: 'PR',  logoColor: '#0038A8' },
+  // ── Asia Timur ────────────────────────────────────────────────────────────
+  { id: 'JL',  name: 'Japan Airlines',        code: 'JL',  logoColor: '#E60012' },
+  { id: 'NH',  name: 'All Nippon Airways',    code: 'NH',  logoColor: '#13448F' },
+  { id: 'KE',  name: 'Korean Air',            code: 'KE',  logoColor: '#00256C' },
+  { id: 'CX',  name: 'Cathay Pacific',        code: 'CX',  logoColor: '#007B5E' },
+  { id: 'BR',  name: 'Eva Air',               code: 'BR',  logoColor: '#007B40' },
+  { id: 'CA',  name: 'Air China',             code: 'CA',  logoColor: '#C8102E' },
+  // ── Timur Tengah ──────────────────────────────────────────────────────────
+  { id: 'EK',  name: 'Emirates',              code: 'EK',  logoColor: '#C8102E' },
+  { id: 'EY',  name: 'Etihad Airways',        code: 'EY',  logoColor: '#9B7D46' },
+  // ── Eropa ─────────────────────────────────────────────────────────────────
+  { id: 'KL',  name: 'KLM',                   code: 'KL',  logoColor: '#00A1DE' },
+  { id: 'AF',  name: 'Air France',            code: 'AF',  logoColor: '#002157' },
+  { id: 'LH',  name: 'Lufthansa',             code: 'LH',  logoColor: '#05164D' },
+  { id: 'TK',  name: 'Turkish Airlines',      code: 'TK',  logoColor: '#C8102E' },
+  // ── Australia & Amerika ───────────────────────────────────────────────────
+  { id: 'QF',  name: 'Qantas',               code: 'QF',  logoColor: '#E01933' },
+  { id: 'AA',  name: 'American Airlines',     code: 'AA',  logoColor: '#0078D2' },
+  { id: 'DL',  name: 'Delta Air Lines',       code: 'DL',  logoColor: '#003A70' },
+  { id: 'UA',  name: 'United Airlines',       code: 'UA',  logoColor: '#002244' },
 ];
 
 // Helper to calculate price factor based on class type
@@ -139,15 +185,34 @@ export function generateFlights(
   ];
 
   scheduleTimes.forEach((time, index) => {
-    // Select airline based on route and random index
-    // Long-haul international route: GA, SQ, JL, QF
-    // Domestic/regional: GA, ID, QG, SQ
-    const isInternational = ['SIN', 'HND', 'SYD'].includes(fromCode) || ['SIN', 'HND', 'SYD'].includes(toCode);
+    // Tentukan maskapai berdasarkan tipe rute
+    const domesticCodes   = ['CGK','DPS','SUB','KNO','YIA','BDO','LOP','UPG','SRG','BPN','PLM','PKU','MDC','DJJ'];
+    const seAsiaCodes     = ['SIN','KUL','BKK','VN','PR'];
+    const eastAsiaCodes   = ['HND','ICN','HKG','PEK'];
+    const middleEastCodes = ['DXB'];
+    const europeCodes     = ['AMS','LHR','CDG','FRA'];
+    const americaCodes    = ['JFK','LAX','SYD'];
+
+    const isDomestic    = domesticCodes.includes(fromCode) && domesticCodes.includes(toCode);
+    const isSEAsia      = seAsiaCodes.includes(fromCode) || seAsiaCodes.includes(toCode);
+    const isEastAsia    = eastAsiaCodes.includes(fromCode) || eastAsiaCodes.includes(toCode);
+    const isMiddleEast  = middleEastCodes.includes(fromCode) || middleEastCodes.includes(toCode);
+    const isEurope      = europeCodes.includes(fromCode) || europeCodes.includes(toCode);
+    const isAmerica     = americaCodes.includes(fromCode) || americaCodes.includes(toCode);
+
     let availableAirlines = airlines;
-    if (isInternational) {
-      availableAirlines = airlines.filter(a => ['GA', 'SQ', 'JL', 'QF'].includes(a.id));
-    } else {
-      availableAirlines = airlines.filter(a => ['GA', 'ID', 'QG', 'SQ'].includes(a.id));
+    if (isDomestic) {
+      availableAirlines = airlines.filter(a => ['GA','ID','JT','QG','IW','IN','3N','TN'].includes(a.id));
+    } else if (isSEAsia) {
+      availableAirlines = airlines.filter(a => ['GA','SQ','AK','MH','TG','VN','PR','ID'].includes(a.id));
+    } else if (isEastAsia) {
+      availableAirlines = airlines.filter(a => ['GA','SQ','JL','NH','KE','CX','BR','CA','AK'].includes(a.id));
+    } else if (isMiddleEast) {
+      availableAirlines = airlines.filter(a => ['GA','SQ','EK','EY','TK'].includes(a.id));
+    } else if (isEurope) {
+      availableAirlines = airlines.filter(a => ['GA','SQ','EK','KL','AF','LH','TK'].includes(a.id));
+    } else if (isAmerica) {
+      availableAirlines = airlines.filter(a => ['GA','SQ','QF','AA','DL','UA','EK'].includes(a.id));
     }
 
     const airlineIndex = Math.floor(random() * availableAirlines.length);
@@ -181,8 +246,8 @@ export function generateFlights(
     const flightNumVal = Math.floor(100 + random() * 899);
     const flightNumber = `${airline.code}-${flightNumVal}`;
 
-    // Stops
-    const stops = isInternational && finalDurationMinutes > 300 && random() > 0.6 ? 1 : 0;
+    // Stops (penerbangan non-domestik dengan durasi panjang bisa ada transit)
+    const stops = !isDomestic && finalDurationMinutes > 300 && random() > 0.6 ? 1 : 0;
 
     flights.push({
       id: `${flightNumber}-${dateStr}-${index}`,

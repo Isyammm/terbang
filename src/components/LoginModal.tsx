@@ -3,9 +3,11 @@ import { X, Mail, Lock, User, Eye, EyeOff, Plane, AlertCircle, CheckCircle2 } fr
 import './LoginModal.css';
 
 export interface UserAccount {
+  id?: number;
   name: string;
   email: string;
   password: string;
+  avatar?: string;
 }
 
 interface LoginModalProps {
@@ -140,7 +142,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLogin
     return 'idle';
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -168,8 +170,44 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLogin
       return;
     }
 
-    const accounts = getStoredAccounts();
+    // ── Coba gunakan backend API (XAMPP) ──────────────────────
+    try {
+      if (window.location.hostname !== 'localhost') {
+        throw new Error('Not on localhost');
+      }
+      const endpoint = mode === 'login' ? '/api/auth/login' : '/api/auth/register';
+      const body = mode === 'login'
+        ? { email, password }
+        : { name: name.trim(), email, password };
 
+      const res = await fetch(`http://localhost:3000${endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        // Error dari server (email salah, sudah terdaftar, dll)
+        if (res.status === 409) setErrors({ email: data.error });
+        else if (res.status === 401) setErrors({ general: data.error });
+        else setErrors({ general: data.error || 'Terjadi kesalahan.' });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Sukses via backend
+      const user: UserAccount = { ...data.user, password };
+      onLoginSuccess(user);
+      onClose();
+      return;
+    } catch {
+      // Backend tidak tersedia → fallback ke localStorage
+      console.warn('Backend tidak tersedia, menggunakan localStorage fallback');
+    }
+
+    // ── Fallback: localStorage (tanpa backend) ─────────────────
+    const accounts = getStoredAccounts();
     if (mode === 'login') {
       const user = accounts.find(a => a.email === email && a.password === password);
       if (!user) {

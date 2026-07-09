@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Filter, SlidersHorizontal, ArrowRight, Plane, ChevronRight } from 'lucide-react';
+import { Filter, SlidersHorizontal, ArrowRight, Plane, Clock, Award, ChevronRight } from 'lucide-react';
 import { Flight, SearchParams } from '../types';
 import './FlightResults.css';
 
@@ -22,7 +22,10 @@ export const FlightResults: React.FC<FlightResultsProps> = ({
   const [sortBy, setSortBy] = useState<SortOption>('cheapest');
 
   // Filter States
-  const [maxPrice, setMaxPrice] = useState<number>(Infinity);
+  const [maxPrice, setMaxPrice] = useState<number>(() => {
+    if (flights.length === 0) return 15000000;
+    return Math.max(...flights.map(f => f.price));
+  });
   
   const minPrice = useMemo(() => {
     if (flights.length === 0) return 0;
@@ -170,29 +173,14 @@ export const FlightResults: React.FC<FlightResultsProps> = ({
                 type="range"
                 className="price-range-slider"
                 min={minPrice}
-                max={flights.length > 0 ? Math.max(...flights.map(f => f.price)) : 50000000}
-                value={maxPrice === Infinity
-                  ? (flights.length > 0 ? Math.max(...flights.map(f => f.price)) : 50000000)
-                  : maxPrice}
+                max={flights.length > 0 ? Math.max(...flights.map(f => f.price)) : 10000000}
+                value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
               />
               <div className="price-labels">
                 <span>{formatCurrency(minPrice)}</span>
-                <span className="current-max">
-                  {maxPrice === Infinity
-                    ? 'Semua Harga'
-                    : formatCurrency(maxPrice)}
-                </span>
+                <span className="current-max">{formatCurrency(maxPrice)}</span>
               </div>
-              {maxPrice !== Infinity && (
-                <button
-                  type="button"
-                  className="reset-price-btn"
-                  onClick={() => setMaxPrice(Infinity)}
-                >
-                  Tampilkan Semua
-                </button>
-              )}
             </div>
           </div>
 

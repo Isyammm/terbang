@@ -142,24 +142,6 @@
   font-weight: 700;
 }
 
-.reset-price-btn {
-  background: none;
-  border: 1px dashed rgba(139, 92, 246, 0.4);
-  color: var(--accent-primary);
-  font-size: 11px;
-  font-family: var(--font-family);
-  padding: 4px 10px;
-  border-radius: var(--border-radius-full);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  align-self: flex-start;
-}
-
-.reset-price-btn:hover {
-  background: rgba(139, 92, 246, 0.1);
-  border-color: var(--accent-primary);
-}
-
 /* Flights List & Sorting */
 .flights-main {
   display: flex;

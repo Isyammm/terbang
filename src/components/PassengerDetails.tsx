@@ -67,9 +67,9 @@ export const PassengerDetails: React.FC<PassengerDetailsProps> = ({
         alert(`Nama lengkap Penumpang ${i + 1} tidak boleh kosong!`);
         return;
       }
-      // Ensure name only contains letters and spaces
-      if (!/^[a-zA-Z\s]+$/.test(trimmedName)) {
-        alert(`Nama lengkap Penumpang ${i + 1} hanya boleh berisi huruf dan spasi!`);
+      // Ensure name does not contain digits or special symbols
+      if (/[0-9!@#$%^&*()_+=\[\]{};:'",.<>?|\\\/`~]/.test(trimmedName)) {
+        alert(`Nama lengkap Penumpang ${i + 1} tidak boleh mengandung angka atau simbol khusus!`);
         return;
       }
       if (isInternational && !passengers[i].passportNumber?.trim()) {
